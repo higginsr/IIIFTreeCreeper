@@ -42,17 +42,18 @@ $(document).ready(function(){
 	{{[@type]}} <br />
 	<h3>Collections</h3>
 <form id="form1" method="get" action="">	
-  {{#each collections}}​
+  {{#each collections}}
 <button type="submit" name="1" value="{{[@id]}}">{{label}}</button><br />
  {{[@id]}} <br />
 <br />
   {{/each}}
   	<h3>Manifests</h3>
   	<table>
-  {{#each manifests}}​
+  {{#each manifests}}
 <tr>
 <td><a href="https://iiif.durham.ac.uk/index.html?manifest={{[@id]}}">{{label}}</a></td>
 <td rowspan="2"><input type="button" onclick="location.href='DULIIIFdaoer.html?2={{[@id]}}';" value="EAD links" /></td>
+<td rowspan="2"><input type="button" onclick="location.href='DULIIIFimager.html?2={{[@id]}}';" value="Image URLs" /></td>
 </tr>
 <tr><td>Manifest: {{[@id]}} </td></tr>
   {{/each}}
