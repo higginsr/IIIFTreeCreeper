@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IIIF manifests to image urls using Handlebars</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+.handlebars {
+  display: none;
+}
+table {
+	 border: 2px solid black;
+	 border-collapse: collapse;
+}
+th {
+	 border: 2px solid black;
+}
+td {
+	 border: 2px solid black;
+	 padding: 15px ;
+}
+body {
+	 padding: 25px ;	
+}
+</style>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js" > </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"> </script>
+<script>
+Handlebars.registerHelper('JP2Kurl', function(passedString) {
+     var t = passedString.split("/");
+     return "<dao altrender=\"href\" title=\"Digitised version\" href=\"https://n2t.durham.ac.uk/ark:/32150/" + t[9] +"/"+ t[11] +".html\" />";
+});
+
+var json_manifest_url = "https://iiif.durham.ac.uk/manifests/trifle/32150/t1/mn/00/t1mn009w238d/manifest";
+var json_data_url = decodeURIComponent(window.location.search.substr(1)).slice(2)
+
+if (json_data_url) {
+	json_url = json_data_url
+} else {
+	json_url = json_manifest_url
+}
+  
+$(document).ready(function(){
+  $.getJSON(json_url,
+    function (data) {
+      var mysource = $('#jsonlisttemplate').html();
+      var mytemplate = Handlebars.compile(mysource);
+      var myresult = mytemplate(data)
+      $('#jsonlist').html(myresult);
+  });
+});
+</script>
+<script id="jsonlisttemplate" type="text/x-handlebars-template">
+	<h2>{{label}}</h2>
+	{{[@id]}}
+
+	<h3>Image URLs</h3>
+	
+<table>
+<tr><th>Label</th><th></th><th>thumbnail</th></tr>
+  {{#each sequences}}
+    {{#each canvases}}
+<tr>
+<td><b>{{label}}</b></td>
+  {{#each images}}
+    <td>
+<form id="form1" method="get" action="leafcropper.html">
+<input type="hidden" name="1" value="{{../images.0.resource.service.[@id]}}">
+<input type="submit" value="Image cropper"></form></td>
+<td><img src="{{../images.0.resource.service.[@id]}}/full/pct:5/0/default.jpg" />
+</td></tr>
+      {{/each}}
+  {{/each}}
+{{/each}}
+  </table>
+
+</script>
+</head>
+<body>
+  <h1>List of images of IIIF Manifest</h1>
+  View images within manifest. Image cropper button opens image in leaflet viewer to generate xywh value of area within image:<br />
+  <div id="jsonlist">Manifest bits go here...</div>
+</body>
+</html>
