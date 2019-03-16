@@ -9,9 +9,9 @@ A working example is at http://fautedemieux.net/DULIIIFTree.html
 
 ## Working with images
 
-Here is an individual page from a book loaded by clicking the image cropper button, selecting the treecreeper.
+Here is an individual page from a book loaded by clicking the image cropper button, selecting the treecreeper rather than the nuthatch.
 ![alt text](https://user-images.githubusercontent.com/10447781/54477425-a4492380-47ff-11e9-8e1d-b662951adbd8.png)
 The cropping box can be adjusted to the area required, which will update the url at the top and the four figures in the bottom right corner.
 The url at the top is the IIIF image api compliant url to load the part of the image highlighted - https://iiif.durham.ac.uk/iiif/trifle/32150/t2/mz/02/t2mz029p4773/aafd43ee0d77e078a2f097f3d0c1e225.jp2/1693,3303,878,1167/full/0/default.jpg (this works but our image server currently crashes with many of these, for which apologies).
-The json fragment at the bottom is the link to open this in a content-state compliant viewer - the copy content-state 64 button copies a base64 encoded version of this into your clipboard. This cna be sent to a compatible viewer thus: https://iiif.durham.ac.uk/index.html?iiif-content=eyJAaWQiOiJodHRwczovL2lpaWYuZHVyaGFtLmFjLnVrL21hbmlmZXN0cy90cmlmbGUvMzIxNTAvdDIvbXovMDIvdDJtejAyOXA0NzczL2NhbnZhcy90MnQ2MTA4dmMxOWYjeHl3aD0xNjkzLDMzMDMsODc4LDExNjciLCJAdHlwZSI6IkNhbnZhcyIsIndpdGhpbiI6eyJAaWQiOiAiaHR0cHM6Ly9paWlmLmR1cmhhbS5hYy51ay9tYW5pZmVzdHMvdHJpZmxlLzMyMTUwL3QyL216LzAyL3QybXowMjlwNDc3My9tYW5pZmVzdCIsIkB0eXBlIjoiTWFuaWZlc3QifX0=
+The json fragment at the bottom is the link to open this in a content-state compliant viewer - the copy content-state 64 button copies a base64 encoded version of this into your clipboard. This can be sent to a compatible viewer thus: https://iiif.durham.ac.uk/index.html?iiif-content=eyJAaWQiOiJodHRwczovL2lpaWYuZHVyaGFtLmFjLnVrL21hbmlmZXN0cy90cmlmbGUvMzIxNTAvdDIvbXovMDIvdDJtejAyOXA0NzczL2NhbnZhcy90MnQ2MTA4dmMxOWYjeHl3aD0xNjkzLDMzMDMsODc4LDExNjciLCJAdHlwZSI6IkNhbnZhcyIsIndpdGhpbiI6eyJAaWQiOiAiaHR0cHM6Ly9paWlmLmR1cmhhbS5hYy51ay9tYW5pZmVzdHMvdHJpZmxlLzMyMTUwL3QyL216LzAyL3QybXowMjlwNDc3My9tYW5pZmVzdCIsIkB0eXBlIjoiTWFuaWZlc3QifX0=
 The remaining copyable fields give the current IIIF manifest and canvas, the base JPG2000 file and the selected area related to the whole image.
