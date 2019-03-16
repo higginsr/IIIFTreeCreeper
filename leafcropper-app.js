@@ -1,5 +1,13 @@
-var jp2kfilename = decodeURIComponent(window.location.search.substr(1)).slice(2);
+function getQueryStringValue (key) {  
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+}
 
+var manifest_url = getQueryStringValue("umfst");
+
+var canvas_url = getQueryStringValue("ucnvs");
+
+// var jp2kfilename = decodeURIComponent(window.location.search.substr(1)).slice(2);
+var jp2kfilename = getQueryStringValue("ujp2k");
 var baseUrl = jp2kfilename;
 
 var map = L.map('map', {
@@ -35,10 +43,12 @@ areaSelect.on('change', function() {
     Math.floor((min.y - max.y) * yRatio)
   ];
   var url = baseUrl + '/' + region.join(',') + '/full/0/default.jpg';
+  var happy = '{"@id":"'+canvas_url+'#xywh='+region+'","@type":"Canvas","within":{"@id": "'+manifest_url+'","@type":"Manifest"}}';
+  var happy64 = btoa(happy);
   $('#urlArea').html(
     '<a href="' + url + '" target=_blank>' + url + '</a>' + '&nbsp; &nbsp; <button type="button" class="btn" data-clipboard-text="'+ url + '">Copy</button>'
   )
   $('#footer').html(
-    '<table><tr><td>' + baseUrl  + '<button type="button" class="btn" data-clipboard-text="'+ baseUrl + '">Copy</button></td> &nbsp; &nbsp; &nbsp; &nbsp; <td></td><td>' + region.join(',') + '<button type="button" class="btn" data-clipboard-text="'+ region.join(',') + '">Copy</button></td></tr></table>'
+    '<table><tr><td>'+happy+'<button type="button" class="btn" data-clipboard-text="'+ happy64 + '">Copy content-state 64</button></td></tr><tr><td>' + manifest_url + '<button type="button" class="btn" data-clipboard-text="'+ manifest_url + '">Copy manifest</button></td></tr><tr><td>' + canvas_url + '<button type="button" class="btn" data-clipboard-text="'+ canvas_url + '">Copy canvas</button></td></tr><tr><td>' + baseUrl  + '<button type="button" class="btn" data-clipboard-text="'+ baseUrl + '">Copy</button></td> &nbsp; &nbsp; &nbsp; &nbsp; <td></td><td>' + region.join(',') + '<button type="button" class="btn" data-clipboard-text="'+ region.join(',') + '">Copy</button></td></tr></table>'
   )
 });
