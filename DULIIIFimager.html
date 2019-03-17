@@ -64,9 +64,9 @@ $(document).ready(function(){
   {{#each images}}
     <td>
 <form id="form1" method="get" action="leafcropper.html">
-<input type="hidden" name="ujp2k" value="{{../images.0.resource.service.[@id]}}">
-<input type="hidden" name="umfst" value="{{../../../[@id]}}">
-<input type="hidden" name="ucnvs" value="{{../[@id]}}">
+<input type="hidden" name="jp2k" value="{{../images.0.resource.service.[@id]}}">
+<input type="hidden" name="manifest" value="{{../../../[@id]}}">
+<input type="hidden" name="canvas" value="{{../[@id]}}">
 <input type="submit" value="Image cropper"></form></td>
 <td><img src="{{../images.0.resource.service.[@id]}}/full/pct:5/0/default.jpg" />
 </td></tr>
