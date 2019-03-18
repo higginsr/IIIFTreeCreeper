@@ -43,7 +43,7 @@ areaSelect.on('change', function() {
     Math.floor((min.y - max.y) * yRatio)
   ];
   var url = baseUrl + '/' + region.join(',') + '/full/0/default.jpg';
-  var happy = '{"@id":"'+canvas_url+'#xywh='+region+'","@type":"Canvas","within":{"@id": "'+manifest_url+'","@type":"Manifest"}}';
+  var happy = '{"@context": "http://iiif.io/api/presentation/0/context.json", "id": "https://example.org/import/1", "type": "Annotation", "motivation": ["highlighting"], "target": {"id":"'+canvas_url+'#xywh='+region+'","type":"Canvas","partOf":{"id": "'+manifest_url+'","type":"Manifest"}}}';
   var happy64 = btoa(happy);
   $('#urlArea').html(
     '<a href="' + url + '" target=_blank>' + url + '</a>' + '&nbsp; &nbsp; <button type="button" class="btn" data-clipboard-text="'+ url + '">Copy</button>'
