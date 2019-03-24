@@ -42,13 +42,27 @@ areaSelect.on('change', function() {
     Math.floor((max.x - min.x) * xRatio),
     Math.floor((min.y - max.y) * yRatio)
   ];
+  if ($("#LinkText").val() === 'undefined')
+  {
+      link_label01 = "Link target";
+  }
+  else 
+  {
+    link_label01 = $("#LinkText").val();   
+  }
   var url = baseUrl + '/' + region.join(',') + '/full/0/default.jpg';
-  var happy = '{"@context": "http://iiif.io/api/presentation/0/context.json", "id": "https://example.org/import/1", "type": "Annotation", "motivation": ["highlighting"], "target": {"id":"'+canvas_url+'#xywh='+region+'","type":"Canvas","partOf":{"id": "'+manifest_url+'","type":"Manifest"}}}';
+$('#urlArea').html(
+    '<table><tr><td><form action=""><input type="text" id="LinkText" size="100" value="'+link_label01+'" /><span> Link text</span></form></td></tr><tr><td><a href="' + url + '" target=_blank>' + url + '</a>' +
+    '&nbsp; &nbsp; <button type="button" class="btn" data-clipboard-text="'+ url + '">Copy</button></td></tr></table>'
+  );
+var happy = '{"@context": "http://iiif.io/api/presentation/0/context.json", "id": "'+canvas_url+'_xywh='+region+
+'", "type": "Annotation", "motivation": ["highlighting"], "resource":{"type":"dctypes:Text","format":"text/plain","chars":"'+link_label01+
+'"}, "target": {"id":"'+canvas_url+'#xywh='+region+'","type":"Canvas","partOf":{"id": "'+manifest_url+'","type":"Manifest"}}}';
   var happy64 = btoa(happy);
-  $('#urlArea').html(
-    '<a href="' + url + '" target=_blank>' + url + '</a>' + '&nbsp; &nbsp; <button type="button" class="btn" data-clipboard-text="'+ url + '">Copy</button>'
-  )
-  $('#footer').html(
-    '<table><tr><td>'+happy+'<button type="button" class="btn" data-clipboard-text="'+ happy64 + '">Copy content-state 64</button></td></tr><tr><td>' + manifest_url + '<button type="button" class="btn" data-clipboard-text="'+ manifest_url + '">Copy manifest</button></td></tr><tr><td>' + canvas_url + '<button type="button" class="btn" data-clipboard-text="'+ canvas_url + '">Copy canvas</button></td></tr><tr><td>' + baseUrl  + '<button type="button" class="btn" data-clipboard-text="'+ baseUrl + '">Copy</button></td> &nbsp; &nbsp; &nbsp; &nbsp; <td></td><td>' + region.join(',') + '<button type="button" class="btn" data-clipboard-text="'+ region.join(',') + '">Copy</button></td></tr></table>'
-  )
-});
+$('#footer').html(
+    '<table><tr><td>'+happy+'</td><td><button type="button" class="btn" data-clipboard-text="'+ happy64 + '">Copy content-state 64</button></td><td></td><td></td></tr><tr><td>' + manifest_url +
+    '<button type="button" class="btn" data-clipboard-text="'+ manifest_url + '">Copy manifest</button></td></tr><tr><td>' + canvas_url + '<button type="button" class="btn" data-clipboard-text="'+
+    canvas_url + '">Copy canvas</button></td></tr><tr><td>' + baseUrl  + '<button type="button" class="btn" data-clipboard-text="'+ baseUrl +
+    '">Copy</button></td> &nbsp; &nbsp; &nbsp; &nbsp; <td></td><td>' + region.join(',') + '<button type="button" class="btn" data-clipboard-text="'+ region.join(',') + '">Copy</button></td></table>'
+  );
+ });
