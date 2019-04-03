@@ -58,7 +58,7 @@ $('#urlArea').html(
 var happy = '{"@context": "http://iiif.io/api/presentation/0/context.json", "id": "'+canvas_url+'_xywh='+region+
 '", "type": "Annotation", "motivation": ["highlighting"], "resource":{"type":"dctypes:Text","format":"text/plain","chars":"'+link_label01+
 '"}, "target": {"id":"'+canvas_url+'#xywh='+region+'","type":"Canvas","partOf":{"id": "'+manifest_url+'","type":"Manifest"}}}';
-  var happy64 = btoa(happy);
+  var happy64 = btoa(unescape(encodeURIComponent(happy)));
 $('#footer').html(
     '<table><tr><td>'+happy+'</td><td><button type="button" class="btn" data-clipboard-text="'+ happy64 + '">Copy content-state 64</button></td><td></td><td></td></tr><tr><td>' + manifest_url +
     '<button type="button" class="btn" data-clipboard-text="'+ manifest_url + '">Copy manifest</button></td></tr><tr><td>' + canvas_url + '<button type="button" class="btn" data-clipboard-text="'+
