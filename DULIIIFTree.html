@@ -17,8 +17,12 @@ td {
 <script src="https://code.jquery.com/jquery-2.1.3.min.js" > </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"> </script>
 <script>
-var start_json_data_url = "http://iiif.durham.ac.uk/manifests/trifle/collection/index";
-var json_data_url = decodeURIComponent(window.location.search.substr(1)).slice(2)
+function getQueryStringValue (key) {  
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+}
+
+var start_json_data_url = "https://iiif.durham.ac.uk/manifests/trifle/collection/index";
+var json_data_url = getQueryStringValue("manifest");
 
 if (json_data_url) {
 	json_url = json_data_url
@@ -43,7 +47,7 @@ $(document).ready(function(){
 	<h3>Collections</h3>
 <form id="form1" method="get" action="">	
   {{#each collections}}
-<button type="submit" name="1" value="{{[@id]}}">{{label}}</button><br />
+<button type="submit" name="manifest" value="{{[@id]}}">{{label}}</button><br />
  {{[@id]}} <br />
 <br />
   {{/each}}
@@ -52,8 +56,8 @@ $(document).ready(function(){
   {{#each manifests}}
 <tr>
 <td><a href="https://iiif.durham.ac.uk/index.html?manifest={{[@id]}}">{{label}}</a></td>
-<td rowspan="2"><input type="button" onclick="location.href='DULIIIFdaoer.html?2={{[@id]}}';" value="EAD links" /></td>
-<td rowspan="2"><input type="button" onclick="location.href='DULIIIFimager.html?2={{[@id]}}';" value="Image URLs" /></td>
+<td rowspan="2"><input type="button" onclick="location.href='DULIIIFdaoer.html?manifest={{[@id]}}';" value="EAD links" /></td>
+<td rowspan="2"><input type="button" onclick="location.href='DULIIIFimager.html?manifest={{[@id]}}';" value="Image URLs" /></td>
 </tr>
 <tr><td>Manifest: {{[@id]}} </td></tr>
   {{/each}}
