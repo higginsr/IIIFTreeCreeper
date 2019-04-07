@@ -26,9 +26,10 @@ var areaSelect = L.areaSelect({
 
 areaSelect.addTo(map);
 
-$('#urlArea').html(baseUrl)
+$('#urlArea').html(baseUrl);
 
 areaSelect.on('change', function() {
+
   var bounds = this.getBounds();
   var zoom = map.getZoom();
   var min = map.project(bounds.getSouthWest(), zoom);
@@ -42,6 +43,7 @@ areaSelect.on('change', function() {
     Math.floor((max.x - min.x) * xRatio),
     Math.floor((min.y - max.y) * yRatio)
   ];
+
   if ($("#LinkText").val() === 'undefined')
   {
       link_label01 = "Link target";
@@ -50,15 +52,19 @@ areaSelect.on('change', function() {
   {
     link_label01 = $("#LinkText").val();   
   }
+
   var url = baseUrl + '/' + region.join(',') + '/full/0/default.jpg';
+
 $('#urlArea').html(
     '<table><tr><td><form action=""><input type="text" id="LinkText" size="100" value="'+link_label01+'" /><span> Link text</span></form></td></tr><tr><td><a href="' + url + '" target=_blank>' + url + '</a>' +
     '&nbsp; &nbsp; <button type="button" class="btn" data-clipboard-text="'+ url + '">Copy</button></td></tr></table>'
   );
+
 var happy = '{"@context": "http://iiif.io/api/presentation/0/context.json", "id": "'+canvas_url+'_xywh='+region+
 '", "type": "Annotation", "motivation": ["highlighting"], "resource":{"type":"dctypes:Text","format":"text/plain","chars":"'+link_label01+
 '"}, "target": {"id":"'+canvas_url+'#xywh='+region+'","type":"Canvas","partOf":{"id": "'+manifest_url+'","type":"Manifest"}}}';
-  var happy64 = btoa(unescape(encodeURIComponent(happy)));
+  var happy64 = btoa(unescape(encodeURIComponent(happy))); // btoa(happy);
+
 $('#footer').html(
     '<table><tr><td>'+happy+'</td><td><button type="button" class="btn" data-clipboard-text="'+ happy64 + '">Copy content-state 64</button></td><td></td><td></td></tr><tr><td>' + manifest_url +
     '<button type="button" class="btn" data-clipboard-text="'+ manifest_url + '">Copy manifest</button></td></tr><tr><td>' + canvas_url + '<button type="button" class="btn" data-clipboard-text="'+
