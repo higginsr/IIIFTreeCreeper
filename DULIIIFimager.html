@@ -29,9 +29,11 @@ Handlebars.registerHelper('JP2Kurl', function(passedString) {
      var t = passedString.split("/");
      return "<dao altrender=\"href\" title=\"Digitised version\" href=\"https://n2t.durham.ac.uk/ark:/32150/" + t[9] +"/"+ t[11] +".html\" />";
 });
-
+function getQueryStringValue (key) {  
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+}
 var json_manifest_url = "https://iiif.durham.ac.uk/manifests/trifle/32150/t1/mn/00/t1mn009w238d/manifest";
-var json_data_url = decodeURIComponent(window.location.search.substr(1)).slice(2)
+var json_data_url = getQueryStringValue("manifest")
 
 if (json_data_url) {
 	json_url = json_data_url
