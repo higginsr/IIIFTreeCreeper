@@ -17,25 +17,34 @@ td {
 <script src="https://code.jquery.com/jquery-2.1.3.min.js" > </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"> </script>
 <script>
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
+Handlebars.registerHelper('trimString', function(passedString2) {
+    let theString2 = passedString2.substring(13,19);
+    return new Handlebars.SafeString(theString2)
+});
+
 function getQueryStringValue (key) {  
   return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
 }
 
-var start_json_data_url = "https://iiif.durham.ac.uk/manifests/trifle/collection/index";
-var json_data_url = getQueryStringValue("manifest");
+let start_json_data_url = "https://iiif.durham.ac.uk/manifests/trifle/collection/index";
+let json_data_url = getQueryStringValue("manifest");
 
 if (json_data_url) {
 	json_url = json_data_url
 } else {
 	json_url = start_json_data_url
 }
-  
+
 $(document).ready(function(){
   $.getJSON(json_url,
     function (data) {
-      var mysource = $('#jsonlisttemplate').html();
-      var mytemplate = Handlebars.compile(mysource);
-      var myresult = mytemplate(data)
+      let mysource = $('#jsonlisttemplate').html();
+      let mytemplate = Handlebars.compile(mysource);
+      let myresult = mytemplate(data)
       $('#jsonlist').html(myresult);
   });
 });
@@ -56,7 +65,9 @@ $(document).ready(function(){
   {{#each manifests}}
 <tr>
 <td><a href="https://iiif.durham.ac.uk/index.html?manifest={{[@id]}}">{{label}}</a></td>
+{{#ifEquals (trimString [@id]) "durham" }}
 <td rowspan="2"><input type="button" onclick="location.href='DULIIIFdaoer.html?manifest={{[@id]}}';" value="EAD links" /></td>
+{{/ifEquals}}
 <td rowspan="2"><input type="button" onclick="location.href='DULIIIFimager.html?manifest={{[@id]}}';" value="Image URLs" /></td>
 </tr>
 <tr><td>Manifest: {{[@id]}} </td></tr>
