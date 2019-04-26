@@ -35,7 +35,7 @@ SOFTWARE.
     <script src="https://cdn.rawgit.com/heyman/leaflet-areaselect/da8905695db78354ddd5b5d9de6ef13699b9d7a7/src/leaflet-areaselect.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <script>
-      var json_data_url = decodeURIComponent(window.location.search.substr(1)).slice(2);
+      let json_data_url = decodeURIComponent(window.location.search.substr(1)).slice(2);
     </script>
   </head>
   <body>
@@ -44,7 +44,7 @@ SOFTWARE.
 <div id="footer"></div>
     <script src="leafcropper-app.js"></script>
     <script>
-      var clipboard = new ClipboardJS('.btn');
+      let clipboard = new ClipboardJS('.btn');
     </script>
   </body>
 </html>
