@@ -59,11 +59,16 @@ $(document).ready(function(){
 	<h3>Canvases</h3>
 <form id="form1" method="get" action="">	
 <table>
-<tr><th>Reference</th><th>dao</th><th>Canvas uri</th></tr>
+<tr><th>Reference</th><th>thumbnail</th><th>dao</th><th>Canvas uri</th></tr>
   {{#each sequences}}
     {{#each canvases}}
 <tr>
 <td><b>{{label}}</b></td>
+<td>
+{{#each images}}
+<img src="{{../images.0.resource.service.[@id]}}/full/pct:10/0/default.jpg" />
+{{/each}}
+</td>
 <td>
 
 <button type="button" class="btn" data-clipboard-text="{{ManifestAndCanvasInBrowser [@id]}}">Copy</button>
